@@ -1,0 +1,87 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+{% comment %} <div class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <b>PDFtoExcel</b>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <p class="login-box-msg"><b>ログオン画面</b></p>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="form-group has-feedback">
+            {{ field }}
+          </div>
+        {% endfor %}
+        <div class="row">
+
+          {% for error in form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+              <p>{{ error }}</p>
+            </div>
+          {% endfor %}
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">ログオン</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+  <!-- /.login-box -->
+
+</div> {% endcomment %}
+
+
+<div class="login-page">
+  <div class="box login-box">
+    <div class="login-logo">
+      <p class="title">PDFtoExcel</p>
+    </div>
+    <!-- /.login-logo -->
+
+    <div class="box">
+      <p class="subtitle has-text-centered"><b>ログオン画面</b></p>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+        
+        {% for field in form %}
+          <div class="field">
+            <label class="label">{{ field.label }}</label>
+            <div class="control">
+              {{ field }}
+            </div>
+            {% if field.errors %}
+              <p class="help is-danger">{{ field.errors.0 }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+          <div class="notification is-danger">
+            <p>{{ error }}</p>
+          </div>
+        {% endfor %}
+
+        <div class="field">
+          <div class="control">
+            <button type="submit" class="button is-primary is-fullwidth">ログオン</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+  <!-- /.login-box -->
+</div>
+
+
+
+{% endblock %}
