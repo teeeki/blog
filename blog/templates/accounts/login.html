@@ -1,0 +1,49 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<div class="login-page">
+  <div class="box login-box">
+    <div class="login-logo">
+      <p class="title">認証フォーム</p>
+    </div>
+    <!-- /.login-logo -->
+
+    <div class="box">
+      <p class="subtitle has-text-centered"><b>ログイン画面</b></p>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+        
+        {% for field in form %}
+          <div class="field">
+            <label class="label">{{ field.label }}</label>
+            <div class="control">
+              {{ field }}
+            </div>
+            {% if field.errors %}
+              <p class="help is-danger">{{ field.errors.0 }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+          <div class="notification is-danger">
+            <p>{{ error }}</p>
+          </div>
+        {% endfor %}
+
+        <div class="field">
+          <div class="control">
+            <button type="submit" class="button is-primary is-fullwidth">ログイン</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+  <!-- /.login-box -->
+</div>
+
+
+
+{% endblock %}

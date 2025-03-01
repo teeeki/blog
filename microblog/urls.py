@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.urls import path
-# from blog.views import frontpage
+from django.urls import path, include
 from blog import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("blog", views.frontpage),
-    path("<slug:slug>/", views.post_detail, name="post_detail")
+    path("", include('accounts.urls')),
+    path("blog/", views.FrontPageView.as_view(), name="frontpage"),
+    path("post/<slug:slug>/", views.PostDetailView.as_view(), name="post_detail")
 ]
