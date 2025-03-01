@@ -5,6 +5,21 @@
 <small>Posted at {{post.posted_date}}</small>
 <p>{{post.intro}}</p>
 <p>{{post.body}}</p>
+
+<!--いいね機能-->
+{% if likes_count %}
+    <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+        <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+    </button>
+{% else %}
+    <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+        <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+    </button>
+{% endif %}
+
+<!-- イイねの数 -->
+<span id="like-for-post-count">{{ likes_count }}</span>
+<span>件のイイね</span>
 <hr />
 
 <!-- コメントされたものを表示 -->
