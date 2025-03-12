@@ -17,8 +17,8 @@ class FrontPageView(TemplateView):
 
 
 class PostDetailView(View):
-    def get(self, request, slug):
-        post = get_object_or_404(Post, slug=slug)
+    def get(self, request, id):
+        post = get_object_or_404(Post, id=id)
         form = CommentForm()
         
         # いいね数といいねしたユーザの取得
@@ -36,16 +36,16 @@ class PostDetailView(View):
                 }
             )
 
-
-    def post(self, request, slug):
-        post = get_object_or_404(Post, slug=slug)
+# slugをidに変更
+    def post(self, request, id):
+        post = get_object_or_404(Post, id=id)
         form = CommentForm(request.POST)
 
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            return redirect("post_detail", slug=slug)
+            return redirect("post_detail", id=id)
 
         # いいね数といいねしたユーザの取得
         likes_count = Likes.objects.filter(post=post).count()

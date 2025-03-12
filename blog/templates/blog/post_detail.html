@@ -8,7 +8,7 @@
 
 <!--いいね機能-->
 {% if likes_count %}
-    <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+    <button type="button" id="like-button" style="border:none;background:none">
         <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
     </button>
 {% else %}
@@ -21,6 +21,32 @@
 <span id="like-for-post-count">{{ likes_count }}</span>
 <span>件のイイね</span>
 <hr />
+
+<script>
+let likeButtonDom = document.getElementById('like-button');
+
+function likeBUttonClick(){
+    let postId = likeButtonDom.getAttribute('post.id');
+    sendLikeRequest(postId);
+}
+
+function sendLikeRequest(postId){
+    let csrfToken = '{{ csrf_token }}';
+    let requestUrl = '/post/${postId}/like/';
+
+    fetch(requestUrl, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrfToken}
+    })
+    .then(response => response.json())
+    .then(data => updateLikeCount(data.likes_count))
+    .catch(function(error) { console.error('エラー:', error)})
+}
+
+
+</script>
+<!-- いいね機ここまで -->
+
 
 <!-- コメントされたものを表示 -->
 <h2 class="subtitle">コメント</h2>
