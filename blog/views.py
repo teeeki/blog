@@ -1,8 +1,7 @@
 from http.client import HTTPResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, TemplateView
-# from django.views import View
-from .models import Post, Likes
+from .models import Post, Like
 from blog.forms import CommentForm
 
 
@@ -22,8 +21,8 @@ class PostDetailView(View):
         form = CommentForm()
         
         # いいね数といいねしたユーザの取得
-        likes_count = Likes.objects.filter(post=post).count()
-        liked_users = Likes.objects.filter(post=post).select_related('user')
+        likes_count = Like.objects.filter(post=post).count()
+        liked_users = Like.objects.filter(post=post).select_related('user')
         
         return render(
             request, 
@@ -36,7 +35,6 @@ class PostDetailView(View):
                 }
             )
 
-# slugをidに変更
     def post(self, request, id):
         post = get_object_or_404(Post, id=id)
         form = CommentForm(request.POST)
@@ -61,3 +59,16 @@ class PostDetailView(View):
                 "liked_users": liked_users
             }
         )
+
+
+class PostLike(View):
+    def post(self, request, post_id):
+        post = get_object_or_404(Post, id=post_id)
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
+
+        # すでに「いいね」していた場合は解除
+        if not created:
+            like.delete()
+
+        # 「いいね」の数を返す
+        return JsonResponse({'likes_count': post.likes.count()})

@@ -25,7 +25,7 @@ class Post(models.Model):
             )
     
     
-class Likes(models.Model):
+class Like(models.Model):
     """いいね"""
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
