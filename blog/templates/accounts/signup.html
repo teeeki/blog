@@ -4,12 +4,12 @@
 <div class="login-page">
   <div class="box login-box">
     <div class="login-logo">
-      <p class="title">認証フォーム</p>
+      <p class="title">SignUpフォーム</p>
     </div>
     <!-- /.login-logo -->
 
     <div class="box">
-      <p class="subtitle has-text-centered"><b>ログイン画面</b></p>
+      <p class="subtitle has-text-centered"><b>ユーザ登録</b></p>
 
       <form action="" method="POST">
         {% csrf_token %}
@@ -34,16 +34,9 @@
 
         <div class="field">
           <div class="control">
-            <button type="submit" class="button is-primary is-fullwidth">ログイン</button>
+            <button type="submit" class="button is-primary is-fullwidth">登録</button>
           </div>
         </div>
-
-        <p class="has-text-centered">
-          <a href="{% url 'accounts:signup' %}" class="has-text-info has-text-weight-bold">
-            Create an Account
-          </a>
-        </p>
-
       </form>
     </div>
     <!-- /.login-box-body -->

@@ -66,8 +66,7 @@ class PostLike(View):
     def post(self, request, post_id):
         post = get_object_or_404(Post, id=post_id)
         like, created = Like.objects.get_or_create(user=request.user, post=post)
-        print(like)
-        print(created)
+
         # すでに「いいね」していた場合は解除
         if not created:
             like.delete()
