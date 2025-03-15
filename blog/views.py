@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, TemplateView
 from .models import Post, Like
 from blog.forms import CommentForm
+from django.http import JsonResponse
 
 
 class FrontPageView(TemplateView):
@@ -65,10 +66,11 @@ class PostLike(View):
     def post(self, request, post_id):
         post = get_object_or_404(Post, id=post_id)
         like, created = Like.objects.get_or_create(user=request.user, post=post)
-
+        print(like)
+        print(created)
         # すでに「いいね」していた場合は解除
         if not created:
             like.delete()
 
         # 「いいね」の数を返す
-        return JsonResponse({'likes_count': post.likes.count()})
+        return JsonResponse({'likes_count': Like.objects.filter(post=post).count()})

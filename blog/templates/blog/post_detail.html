@@ -8,11 +8,11 @@
 
 <!--いいね機能-->
 {% if likes_count %}
-    <button type="button" id="like-button" data-post-id='{{ post.id }}' style="border:none;background:none">
+    <button type="button" id="like-button" post-id='{{ post.id }}' style="border:none;background:none">
         <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
     </button>
 {% else %}
-    <button type="button" id="like-button" data-post-id='{{ post.id }}' style="border:none;background:none">
+    <button type="button" id="like-button" post-id='{{ post.id }}' style="border:none;background:none">
         <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
     </button>
 {% endif %}
@@ -24,17 +24,16 @@
 
 <script>
 let likeButtonDom = document.getElementById('like-button');
-console.log(likeButtonDom)
+
 function likeBUttonClick(){
-    let postId = likeButtonDom.getAttribute('data-post-id');
+    let postId = likeButtonDom.getAttribute('post-id');
     sendLikeRequest(postId);
-    console.log(postId)
 }
 
 function sendLikeRequest(postId){
     let csrfToken = '{{ csrf_token }}';
     let requestUrl = `/post/${postId}/like/`;
-
+    
     fetch(requestUrl, {
         method: 'POST',
         headers: { 'X-CSRFToken': csrfToken}
@@ -45,7 +44,6 @@ function sendLikeRequest(postId){
 }
 
 function updateLikeCount(likeCount) {
-    //console.log(likeCount);
     let like_countDom = document.getElementById('like-for-post-count');
     like_countDom.textContent = likeCount;
 }
