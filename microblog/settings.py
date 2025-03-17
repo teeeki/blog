@@ -120,7 +120,7 @@ STATIC_URL = "static/"
 
 LOGIN_URL = "/login"                # ログインが必要なページに認証していないユーザがアクセスした場合に遷移するURL
 LOGIN_REDIRECT_URL = "/blog/"       # ログイン後にリダイレクトするURL
-LOGOUT_REDIRECT_URL = "/login/"     # ログアウト五にリダイレクトするURL   
+LOGOUT_REDIRECT_URL = "/blog/login/"     # ログアウト五にリダイレクトするURL   
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

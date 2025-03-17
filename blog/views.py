@@ -1,13 +1,14 @@
 from http.client import HTTPResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, RedirectView
 from .models import Post, Like
 from blog.forms import CommentForm
 from django.http import JsonResponse
 
 
-class FrontPageView(TemplateView):
+class FrontPageView(TemplateView, RedirectView):
     template_name = "blog/frontpage.html"
+    pattern_name = "post_detail"    # リダイレクト先URLのname
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

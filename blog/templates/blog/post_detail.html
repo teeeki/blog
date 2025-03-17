@@ -1,7 +1,7 @@
 {% extends "blog/base.html" %}{% block content %}
 
 
-<h1 class="title">{{post.title}}</h2>
+<h1 class="title">{{post.title}}</h1>
 <small>Posted at {{post.posted_date}}</small>
 <p>{{post.intro}}</p>
 <p>{{post.body}}</p>
@@ -32,7 +32,7 @@ function likeBUttonClick(){
 
 function sendLikeRequest(postId){
     let csrfToken = '{{ csrf_token }}';
-    let requestUrl = `/post/${postId}/like/`;
+    let requestUrl = `/blog/post/${postId}/like/`;
     
     fetch(requestUrl, {
         method: 'POST',

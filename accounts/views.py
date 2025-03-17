@@ -12,11 +12,17 @@ class Login(LoginView):
     """ログインページ"""
     form_class = LoginForm  # フォームクラス「LoginForm」を指定
     template_name = 'accounts/login.html'   # 使用するテンプレート（HTML）
+    
+    def get_default_redirect_url(self):
+        return reverse_lazy('top')
 
 
 class Logout(LoginRequiredMixin, LogoutView):
     """ログアウトページ"""
     template_name = 'accounts/login.html'   # ログアウト後に表示されるテンプレート（HTML）
+    
+    # def get_default_redirect_url(self):
+    #     return reverse_lazy('login')
 
 
 class SignUp(CreateView):
