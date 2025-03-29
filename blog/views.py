@@ -4,6 +4,8 @@ from django.views.generic import View, TemplateView, RedirectView
 from .models import Post, Like
 from blog.forms import CommentForm
 from django.http import JsonResponse
+from .forms import ArticleForm
+from django.views.generic.edit import FormView
 
 
 class FrontPageView(TemplateView, RedirectView):
@@ -74,3 +76,10 @@ class PostLike(View):
 
         # 「いいね」の数を返す
         return JsonResponse({'likes_count': Like.objects.filter(post=post).count()})
+    
+    
+class NewPost(FormView):
+    template_name = "blog/newpost.html"
+    form_class = ArticleForm
+    success_url = "top"
+    

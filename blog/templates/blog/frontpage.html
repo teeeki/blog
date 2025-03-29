@@ -1,10 +1,19 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
+
+<!-- 新規投稿機能 -->
+<button type="button" id="new-post-button" onclick="location.href='{% url "newpost" %}'"
+    style="font-size: 2rem; padding: 1rem; margin-bottom: 1rem;">
+    <i class="fa-solid fa-square-plus"></i>
+</button>
+
+<!-- ここまで -->
+
 {% for post in posts %}
 <div class="post block">
     <h2 class="subtitle">{{post.title}}</h2>
-    <small>Posted at {{post.posted_date}}</small>
+    <small>Posted from <span class="has-text-weight-bold is-underlined">{{post.user}}</span> at {{post.posted_date}}</small>
     <p>{{post.intro}}</p>
     <a href="{% url 'post_detail' post.id %}">もっと読む</a>
     <hr />

@@ -1,0 +1,11 @@
+{% extends "blog/base.html" %}{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button name="btn_submit" type="submit">
+      送信
+    </button>
+</form>
+
+{% endblock %}
