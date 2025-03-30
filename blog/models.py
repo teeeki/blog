@@ -7,7 +7,7 @@ from django.db.models import QuerySet, Count, Case, When, IntegerField
 class Post(models.Model):
     title = models.CharField(max_length=255, default="Untitled")
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    slug = models.SlugField(null=False, default="")
+    slug = models.SlugField(null=False, default="", unique=True)
     intro = models.TextField(null=False, default="")
     body = models.TextField(default="", null=False)
     posted_date = models.DateTimeField(auto_now_add=True)

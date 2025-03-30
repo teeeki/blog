@@ -1,10 +1,19 @@
-{% extends "blog/base.html" %}{% block content %}
+{% extends "blog/base.html" %}
+{% block content %}
 
-<form method="POST">
+<form method="POST" action="{% url 'savepost' %}">
     {% csrf_token %}
-    {{ form }}
-    <button name="btn_submit" type="submit">
-      送信
+    {% for f in form %}
+        <div class="field">
+            <p>{{ f.label }}</p>
+            {{ f }}
+            {% if f.errors %}
+                <p style="color:red">{{ f.errors }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button name="btn_submit" type="submit" class="button is-danger">
+        送信
     </button>
 </form>
 

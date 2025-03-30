@@ -6,6 +6,7 @@ from blog.forms import CommentForm
 from django.http import JsonResponse
 from .forms import ArticleForm
 from django.views.generic.edit import FormView
+from django.utils.text import slugify
 
 
 class FrontPageView(TemplateView, RedirectView):
@@ -82,4 +83,30 @@ class NewPost(FormView):
     template_name = "blog/newpost.html"
     form_class = ArticleForm
     success_url = "top"
+
+
+class SavePost(TemplateView):
+    template_name = "blog/newpost.html"
+    form_class = ArticleForm
+
+    def get(self, request):
+        print(request.user)
+        form = self.form_class()
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request):
+        print(request.user)
+        form_data = self.form_class(request.POST)
+        if form_data.is_valid():
+            try:
+                post = form_data.save(commit=False)
+                post.user = request.user  # ← 忘れがちなポイント！
+                post.slug = slugify(post.title)  # ← slugの重複にも注意
+                post.save()
+                return redirect("top")
+            except Exception as e:
+                print("保存エラー:", e)
+                form_data.add_error(None, "保存時にエラーが発生しました。")
+        return render(request, self.template_name, {"form": form_data})
+    
     

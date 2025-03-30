@@ -16,6 +16,6 @@ urlpatterns = [
     # 新規投稿用webページのURL
     path("blog/newpost", views.NewPost.as_view(), name="newpost"),
     # 新規投稿をDBに格納
-    # path("blog/savepost", name="savepost"),
+    path("blog/savepost", views.SavePost.as_view(), name="savepost"),
     
 ]
